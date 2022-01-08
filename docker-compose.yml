@@ -13,14 +13,14 @@ services:
       context: ./backend
       target: django-dev
     labels:
-      traefik.http.routers.web.rule: Host("docker") && PathPrefix("/admin")
+      traefik.http.routers.web.rule: Host("2886795273-80-simba10.environments.katacoda.com") && PathPrefix("/admin")
       traefik.http.services.web.loadbalancer.server.port: 5000
-
   flask_web:
     build:
       context: ./backend
       target: flask-dev
-    stdin_open: true
+    ports:
+      - 7000:5000
     labels:
-      traefik.http.routers.flask_web.rule: Host("docker")
+      traefik.http.routers.flask_web.rule: Host("2886795273-80-simba10.environments.katacoda.com/") && PathPrefix("/todos")
       traefik.http.services.flask_web.loadbalancer.server.port: 5000
