@@ -12,10 +12,8 @@ services:
     build: 
       context: ./backend
       target: django-dev
-    ports:
-      - 6000:5000
     labels:
-      traefik.http.routers.web.rule: Host("localhost") && PathPrefix("/admin")
+      traefik.http.routers.web.rule: Host("docker") && PathPrefix("/admin")
       traefik.http.services.web.loadbalancer.server.port: 5000
 
   flask_web:
@@ -23,8 +21,6 @@ services:
       context: ./backend
       target: flask-dev
     stdin_open: true
-    ports:
-      - 8000:5000
     labels:
-      traefik.http.routers.flask_web.rule: Host("localhost")
+      traefik.http.routers.flask_web.rule: Host("docker")
       traefik.http.services.flask_web.loadbalancer.server.port: 5000
