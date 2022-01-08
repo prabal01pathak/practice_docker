@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  proxy:
+    image: traefik:2.2
+    command: --providers.docker
+    ports:
+      - 80:80
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  web:
+    build: 
+      context: ./backend
+      target: django-dev
+    labels:
+      traefik.http.routers.web.rule: Host("locahost") + PathPrefix("/admin")
+      traefik.http.services.web.loadbalance.server.port: 8000
+
+  flask_web:
+    build:
+      context: ./backend
+      target: flask-dev
+    stdin_open: true
+    labels:
+      traefik.http.routers.flask_web.rule: Host("locahost")
+      traefik.http.services.flask_web.loadbalance.server.port: 5000
