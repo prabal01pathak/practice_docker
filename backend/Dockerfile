@@ -11,7 +11,7 @@ RUN pip3 install -r requirements.txt
 
 FROM base AS django-dev
 COPY ./django_rest/ ./
-CMD ["python","manage.py","runserver","0.0.0.0:8000"]
+CMD ["python","manage.py","runserver","0.0.0.0:5000"]
 
 
 
