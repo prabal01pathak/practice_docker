@@ -8,4 +8,4 @@ do
     sleep 2
 done 
 
-python run.py
+python3 run.py
