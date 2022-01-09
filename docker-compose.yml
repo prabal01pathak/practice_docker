@@ -9,6 +9,7 @@ services:
     ports:
       - 80:80
     volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
       - ./docker/nginx:/etc/ngix/conf.d
     depends_on:
       - django_backend
@@ -20,7 +21,9 @@ services:
       context: .
       dockerfile: ./docker/backend/Dockerfile
     volumes:
-    entrypoint: /app/docker/backend/wsgi-entrypoint.sh
+    entrypoint: 
+      - /bin/sh
+      - /app/docker/backend/wsgi-entrypoint.sh
     volumes:
       - static_volume:/app/backend/django_rest/static
     expose:
@@ -31,7 +34,9 @@ services:
     build:
       context: .
       dockerfile: ./docker/backend/flask/Dockerfile
-    entrypoint: /app/docker/backend/flask/wsgi-entrypoint.sh
+    entrypoint: 
+      - /bin/sh
+      - /app/docker/backend/flask/wsgi-entrypoint.sh
     volumes:
       - static_volume:/app/backend/flask_rest/static
     expose:
