@@ -1,3 +1,4 @@
 django
 flask
 flask_restful
+whitenoise
