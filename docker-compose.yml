@@ -13,6 +13,8 @@ services:
     depends_on:
       - django_backend
       - flask_backend
+    networks:
+      - nginx_network
   django_backend:
     build: 
       context: .
@@ -23,6 +25,8 @@ services:
       - static_volume:/app/backend/django_rest/static
     expose:
       - 8000
+    networks:
+      - nginx_network
   flask_backend:
     build:
       context: .
@@ -32,5 +36,11 @@ services:
       - static_volume:/app/backend/flask_rest/static
     expose:
       - 5000
+    networks:
+      - nginx_network
 volumes:
   static_volume: {}
+
+networks:
+  nginx_network:
+    driver: bridge

@@ -10,6 +10,7 @@ RUN pip install -r backend/requirements.txt
 EXPOSE 8000
 ADD ./docker /app/docker/
 ADD ./backend /app/backend 
+CMD ["gunicorn", "--chdir", "backend/django_rest","--bind",":8000","django_rest.wsgi:application"]
 
 
 
