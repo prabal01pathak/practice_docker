@@ -15,17 +15,22 @@ services:
       - flask_backend
   django_backend:
     build: 
-      context: ./backend
-      target: django-dev
-    labels:
-      traefik.http.routers.web.rule: Host("2886795273-80-simba10.environments.katacoda.com") && PathPrefix("/admin")
-      traefik.http.services.web.loadbalancer.server.port: 5000
-  flask_web:
+      context: .
+      dockerfile: ./docker/backend/Dockerfile
+    volumes:
+    entrypoint: /app/docker/backend/wsgi-entrypoint.sh
+    volumes:
+      - static_volume:/app/backend/django_rest/static
+    expose:
+      - 8000
+  flask_backend:
     build:
-      context: ./backend
-      target: flask-dev
-    ports:
-      - 7000:5000
-    labels:
-      traefik.http.routers.flask_web.rule: Host("2886795273-80-simba10.environments.katacoda.com/") && PathPrefix("/todos")
-      traefik.http.services.flask_web.loadbalancer.server.port: 5000
+      context: .
+      dockerfile: ./docker/backend/flask/Dockerfile
+    entrypoint: /app/docker/backend/wsgit-entrypoint_flask.sh
+    volumes:
+      - static_volume:/app/backend/flask_rest/static
+    expose:
+      - 5000
+volumes:
+  static_volume: {}
