@@ -1,2 +1,2 @@
-FROM nginx:stable-alpine
+FROM nginx
 CMD ["nginx", "-g", "daemon off;"]
