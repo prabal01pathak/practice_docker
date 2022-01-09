@@ -1,14 +1,19 @@
 version: '3.4'
 
 services:
-  proxy:
-    image: traefik:2.2
-    command: --providers.docker
+  nginx:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
     ports:
       - 80:80
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-  web:
+      - ./docker/nginx:/etc/ngix/conf.d
+    depends_on:
+      - django_backend
+      - flask_backend
+  django_backend:
     build: 
       context: ./backend
       target: django-dev
