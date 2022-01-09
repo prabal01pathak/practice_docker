@@ -3,7 +3,7 @@ do
     echo "waiting for server volume"
 done
 
-until ./manage.py migrate
+until python3 manage.py migrate
 do 
     echo "waiting for db to be ready..."
     sleep 2
