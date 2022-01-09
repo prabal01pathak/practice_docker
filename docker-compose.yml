@@ -27,7 +27,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/backend/flask/Dockerfile
-    entrypoint: /app/docker/backend/wsgit-entrypoint_flask.sh
+    entrypoint: /app/docker/backend/wsgi-entrypoint_flask.sh
     volumes:
       - static_volume:/app/backend/flask_rest/static
     expose:
