@@ -9,8 +9,9 @@ def home(request):
         "id": 1,
         "name": "prabal",
     }
-    if request.method="POST":
-        return render(request,'index.html',data['id']=2)
+    if request.method=="POST":
+        data['id']=2
+        return render(request,'index.html',data)
 
     return render(request,'index.html',data)
 
