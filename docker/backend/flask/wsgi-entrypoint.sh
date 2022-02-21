@@ -1,5 +1,3 @@
-until cd /app/backend/flask_rest
-do
-    echo "waiting for server volume"
-done
+cd /app/backend/flask_rest
+
 python3 run.py
